@@ -1,9 +1,9 @@
-package com.astound.presentation.productreviews.controllers;
+package com.productreviews.controllers;
 
-import com.astound.presentation.productreviews.entities.Product;
-import com.astound.presentation.productreviews.entities.Review;
-import com.astound.presentation.productreviews.repository.ProductRepository;
-import com.astound.presentation.productreviews.repository.ReviewRepository;
+import com.productreviews.entities.Product;
+import com.productreviews.entities.Review;
+import com.productreviews.repository.ProductRepository;
+import com.productreviews.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import static com.astound.presentation.productreviews.controllers.ControllerConstants.ERROR_PAGE;
-import static com.astound.presentation.productreviews.controllers.ControllerConstants.PRODUCT_PAGE;
 
 
 @Controller
@@ -35,9 +32,9 @@ public class ProductController
 		}
 		else
 		{
-			return ERROR_PAGE;
+			return ControllerConstants.ERROR_PAGE;
 		}
-		return PRODUCT_PAGE;
+		return ControllerConstants.PRODUCT_PAGE;
 	}
 
 	@PostMapping(value = "/{productId}/reviews")
@@ -54,9 +51,9 @@ public class ProductController
 		}
 		else
 		{
-			return ERROR_PAGE;
+			return ControllerConstants.ERROR_PAGE;
 		}
-		return PRODUCT_PAGE;
+		return ControllerConstants.PRODUCT_PAGE;
 	}
 
 }

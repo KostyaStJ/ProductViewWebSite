@@ -1,4 +1,4 @@
-package com.astound.presentation.productreviews;
+package com.productreviews;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

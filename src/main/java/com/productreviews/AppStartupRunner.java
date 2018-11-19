@@ -1,8 +1,8 @@
-package com.astound.presentation.productreviews;
+package com.productreviews;
 
-import com.astound.presentation.productreviews.entities.Category;
-import com.astound.presentation.productreviews.entities.Product;
-import com.astound.presentation.productreviews.repository.CategoryRepository;
+import com.productreviews.entities.Category;
+import com.productreviews.entities.Product;
+import com.productreviews.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -22,7 +22,7 @@ public class AppStartupRunner implements ApplicationRunner
 	private final CategoryRepository categoryRepository;
 
 	@PostConstruct
-	public void onStartUp()
+	public void init()
 	{
 		System.out.println(
 				"------------------------------------------------------AppStartupRunner LOADED------------------------------------------------------");

@@ -1,4 +1,4 @@
-package com.astound.presentation.productreviews.controllers;
+package com.productreviews.controllers;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.astound.presentation.productreviews;
+package com.productreviews;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

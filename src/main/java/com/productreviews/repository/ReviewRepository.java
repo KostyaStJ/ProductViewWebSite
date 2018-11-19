@@ -1,7 +1,7 @@
-package com.astound.presentation.productreviews.repository;
+package com.productreviews.repository;
 
-import com.astound.presentation.productreviews.entities.Product;
-import com.astound.presentation.productreviews.entities.Review;
+import com.productreviews.entities.Product;
+import com.productreviews.entities.Review;
 import org.springframework.stereotype.Component;
 
 

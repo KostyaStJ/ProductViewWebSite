@@ -1,4 +1,4 @@
-package com.astound.presentation.productreviews.controllers;
+package com.productreviews.controllers;
 
 public class ControllerConstants
 {

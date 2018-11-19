@@ -1,4 +1,4 @@
-package com.astound.presentation.productreviews.entities;
+package com.productreviews.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

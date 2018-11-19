@@ -1,11 +1,11 @@
-package com.astound.presentation.productreviews.entities;
-
+package com.productreviews.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -13,11 +13,10 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product
+public class Category
 {
 	private Integer id;
 	private String name;
-	private Double price;
 	private String description;
-	private List<Review> reviews;
+	private final List<Product> products = new ArrayList<>();
 }
