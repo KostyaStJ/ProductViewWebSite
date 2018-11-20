@@ -2,7 +2,8 @@ package com.productreviews;
 
 import com.productreviews.entities.Category;
 import com.productreviews.entities.Product;
-import com.productreviews.repository.CategoryRepository;
+import com.productreviews.services.CategoryService;
+import com.productreviews.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -19,7 +20,10 @@ import java.util.Arrays;
 @ConditionalOnProperty(value = "import.testdata", havingValue = "true")
 public class AppStartupRunner implements ApplicationRunner
 {
-	private final CategoryRepository categoryRepository;
+
+
+	private final CategoryService categoryService;
+	private final ProductService productService;
 
 	@PostConstruct
 	public void init()
@@ -41,13 +45,15 @@ public class AppStartupRunner implements ApplicationRunner
 		Product product2 = Product.builder().id(2).name("Product 2").description("desc").build();
 		Product product3 = Product.builder().id(3).name("Product 3").description("desc").build();
 
+
 		product1.setReviews(new ArrayList<>());
 		product2.setReviews(new ArrayList<>());
 		product3.setReviews(new ArrayList<>());
 
 		category1.getProducts().addAll(Arrays.asList(product1, product2, product3));
 
-		categoryRepository.getCategories().add(category1);
+		productService.addAll(category1.getProducts());
+		categoryService.addCategory(category1);
 
 		//Category 2
 		Category category2 = Category.builder().id(2).name("Category 2").description("desc").build();
@@ -59,7 +65,8 @@ public class AppStartupRunner implements ApplicationRunner
 		product5.setReviews(new ArrayList<>());
 
 		category2.getProducts().addAll(Arrays.asList(product4, product5));
+		productService.addAll(category2.getProducts());
 
-		categoryRepository.getCategories().add(category2);
+		categoryService.addCategory(category2);
 	}
 }

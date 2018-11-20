@@ -1,7 +1,7 @@
 package com.productreviews.controllers;
 
 import com.productreviews.entities.Category;
-import com.productreviews.repository.CategoryRepository;
+import com.productreviews.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +19,14 @@ import static com.productreviews.controllers.ControllerConstants.HOME_PAGE;
 @RequestMapping(value = "/")
 public class HomepageController
 {
-	private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
 	@GetMapping
 	public String getHomepage(Model model)
 	{
 		System.out.println(
 				"------------------------------------------------------HOMEPAGE------------------------------------------------------");
-		List<Category> categories = categoryRepository.getCategories();
+        List<Category> categories = categoryService.getCategories();
 		if (!categories.isEmpty())
 		{
 			model.addAttribute("categories", categories);
