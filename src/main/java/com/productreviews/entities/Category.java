@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +21,13 @@ public class Category
 
 	private String name;
 	private String description;
+
 	@Id
-	@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

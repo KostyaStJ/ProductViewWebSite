@@ -1,5 +1,5 @@
 <jsp:include page="content/header.jsp"/>
 
-error
+${errors}
 
 <jsp:include page="content/footer.jsp"/>

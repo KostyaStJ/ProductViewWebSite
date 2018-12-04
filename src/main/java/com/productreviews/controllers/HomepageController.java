@@ -16,7 +16,7 @@ import static com.productreviews.controllers.ControllerConstants.HOME_PAGE;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/")
+@RequestMapping(value = "/home")
 public class HomepageController
 {
     private final CategoryService categoryService;

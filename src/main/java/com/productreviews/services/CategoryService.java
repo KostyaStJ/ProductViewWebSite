@@ -15,7 +15,9 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public void addCategory(Category category) {
-        categoryRepository.save(category);
+        Category categoryEntity = new Category(category.getName(), category.getDescription());
+        categoryRepository.save(categoryEntity);
+
     }
 
     public List<Category> getCategories() {
@@ -24,4 +26,5 @@ public class CategoryService {
         categoryIterable.forEach(categoryList::add);
         return categoryList;
     }
+
 }
