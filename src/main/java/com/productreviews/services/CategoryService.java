@@ -1,5 +1,7 @@
 package com.productreviews.services;
 
+import com.productreviews.converters.CategoryConverter;
+import com.productreviews.data.CategoryData;
 import com.productreviews.entities.Category;
 import com.productreviews.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,18 +15,30 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryConverter categoryConverter;
 
-    public void addCategory(Category category) {
-        Category categoryEntity = new Category(category.getName(), category.getDescription());
+
+    public void addCategory(CategoryData categoryData) {
+        Category categoryEntity = new Category();
+        categoryConverter.dataToModel(categoryData, categoryEntity);
         categoryRepository.save(categoryEntity);
-
     }
 
-    public List<Category> getCategories() {
+    public void deleteCategory(Integer id) {
+        categoryRepository.deleteById(id);
+    }
+
+    public List<CategoryData> getCategories() {
         Iterable<Category> categoryIterable = categoryRepository.findAll();
-        List<Category> categoryList = new ArrayList<>();
-        categoryIterable.forEach(categoryList::add);
-        return categoryList;
+
+        List<CategoryData> categoriesData = new ArrayList<>();
+        for (Category category : categoryIterable) {
+            CategoryData categoryData = new CategoryData();
+            categoryConverter.modelToData(category, categoryData);
+            categoriesData.add(categoryData);
+        }
+
+        return categoriesData;
     }
 
 }

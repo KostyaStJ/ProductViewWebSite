@@ -1,6 +1,6 @@
 package com.productreviews.controllers;
 
-import com.productreviews.entities.Category;
+import com.productreviews.data.CategoryData;
 import com.productreviews.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class CategoryController
 	@GetMapping(value = "/{categoryId}")
 	public String getCategory(@PathVariable Integer categoryId, Model model)
 	{
-		Optional<Category> category = categoryService.getCategories().stream()
+        Optional<CategoryData> category = categoryService.getCategories().stream()
 				.filter(cat -> cat.getId().equals(categoryId)).findAny();
 		if (category.isPresent())
 		{

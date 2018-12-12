@@ -29,17 +29,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/js/**", "/fonts/**", "/logo.png").permitAll();
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration")
+                .antMatchers("/", "/registration", "/home")
                 .permitAll()
                 .antMatchers("/admin").hasAuthority("ADMIN")
-                .anyRequest().authenticated()
+
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .usernameParameter("email").passwordParameter("password")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/home", true)
-                .failureUrl("/registration");
+                .failureUrl("/registration")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/home");
 
 
     }

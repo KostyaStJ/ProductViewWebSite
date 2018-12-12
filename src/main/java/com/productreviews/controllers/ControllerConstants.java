@@ -13,6 +13,11 @@ public class ControllerConstants
 
     public static final String ADMIN_PAGE = "admin";
     public static final String ADMIN_ADDCATEGORY_PAGE = "addCategory";
+    public static final String ADMIN_ALLCATEGORIES_PAGE = "allcategories";
+    public static final String ADMIN_ALLUSERS_PAGE = "allusers";
+    public static final String ADMIN_ADDPRODUCT_PAGE = "addproduct";
 
     public static final String HOME_URL = "/home";
+    public static final String ADMIN_URL = "/admin";
+
 }

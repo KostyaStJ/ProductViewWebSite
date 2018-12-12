@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +19,8 @@
 
 <body>
 
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -33,12 +36,22 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/thanks">Thanks</a></li>
-                <li><a href="/admin">Admin</a></li>
+
             </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
+                <li sec:authorize="isAuthenticated()"><a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Logout</a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')"><a href="/admin">Admin</a></li>
+
+            </ul>
+            <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+
         </div><!--/.nav-collapse -->
     </div>
 </nav>
+</div>
+</body>
 
-<div class="container">
-
-    <div class="starter-template">
+</html>

@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -20,9 +17,12 @@ import java.util.List;
 public class Product
 {
 	@Id
-
+	@GeneratedValue
 	@Column(name = "product_id")
 	private Integer id;
+
+	@ManyToOne
+	private Category category;
 
 	private String name;
 	private Double price;

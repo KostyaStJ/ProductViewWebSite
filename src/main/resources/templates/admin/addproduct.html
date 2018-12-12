@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+>
+
+<div th:insert="content/header.html"></div>
+
+<div class="container">
+    <div class="starter-template">
+        <form method="POST" action="/admin/addproduct" th:action="@{'/admin/addproduct'}" th:object="${productData}">
+            <input type="text" th:field="*{name}" class="form-control" placeholder="Product name"/>
+            <input type="text" th:field="*{description}" class="form-control" placeholder="Product desc"/>
+            <input type="text" th:field="*{price}" class="form-control" placeholder="Product price"/>
+            <ul>
+                <li th:each="cat: ${categories}">
+                    <input type="radio"
+                           th:field="*{category}"
+                           th:value="${cat.id}"/>
+                    <label
+                            th:for="${#ids.prev('category')}"
+                            th:text="${cat.name}"></label>
+                </li>
+            </ul>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="submit" value="Submit" class="btn btn-primary"/>
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div th:insert="content/footer.html"></div>
+</html>

@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,5 +34,12 @@ public class UserService {
             return null;
         }
 
+    }
+
+    public List<User> getUsers() {
+        Iterable<User> userIterable = userRepository.findAll();
+        List<User> userList = new ArrayList<>();
+        userIterable.forEach(userList::add);
+        return userList;
     }
 }

@@ -1,8 +1,11 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+>
 
-<jsp:include page="content/header.jsp"/>
+<div th:insert="content/header.html"></div>
 
+<div class="container">
+    <div class="starter-template">
 <div class="nav navbar-left">
     <ul class="nav nav-pills nav-stacked">
         <li role="presentation" class="active"><a href="/home">Home</a></li>
@@ -12,12 +15,15 @@
                 Categories <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li role="presentation"><a href="/admin/addcategory">Add category</a></li>
-                <li role="presentation"><a href="/admin/allcategories">Show all categories</a></li>
+                <li role="presentation"><a href="/admin/allcategories">Categories</a></li>
+                <li role="presentation"><a href="/admin/addproduct">Products</a></li>
             </ul>
         </li>
-        <li role="presentation"><a href="#">Users</a></li>
+        <li role="presentation"><a href="/admin/allusers">Users</a></li>
     </ul>
 </div>
+    </div>
+</div>
 
-<jsp:include page="content/footer.jsp"/>
+<div th:insert="content/footer.html"></div>
+</html>

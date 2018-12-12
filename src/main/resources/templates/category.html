@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<div th:insert="content/header.html"></div>
+
+<div class="container">
+    <div class="starter-template">
+        <div class="row">
+
+            <th:block th:each="product : ${category.products}">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a th:href="@{'/products/' + ${product.id}}"><img src="holder.js/242x200"></a>
+                        <div class="caption">
+                            <h3 th:text=${product.name}></h3>
+                            <p th:text=${product.description}></p>
+                            <form method="POST" action="#" th:action="@{'/products/' + ${product.id}}" th:method="POST"
+                                  sec:authorize="hasAuthority('ADMIN')">
+                                <input name="submit" type="submit" value="Delete" class="btn btn-primary"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+
+        </div>
+    </div>
+</div>
+
+<div th:insert="content/footer.html"></div>
+
+</html>

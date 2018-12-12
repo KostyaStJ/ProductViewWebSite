@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,20 +13,16 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category
-{
-	@OneToMany
-	private final List<Product> products = new ArrayList<>();
-
-	private String name;
-	private String description;
-
-	@Id
+public class Category {
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+    private Integer id;
 
-    public Category(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
+
+    private String name;
+    private String description;
+
+
 }

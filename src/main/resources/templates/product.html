@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<div th:insert="content/header.html"></div>
+
+<div class="container">
+    <div class="starter-template">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-xs-6 col-md-4">
+                        <img src="holder.js/350x300">
+                    </div>
+
+                    <div class="col-xs-12 col-md-8">
+                        <h1>Product</h1>
+                        <p class="lead" th:text=${product.name}></p>
+                        <p th:text=${product.description}></p>
+                    </div>
+
+                </div>
+
+                <p class="lead"> Reviews </p>
+                <ul class="list-group">
+                    <th:block th:each="review : ${product.reviews}">
+                        <li class="list-group-item" th:text=${review.text}></li>
+                    </th:block>
+                </ul>
+
+                <div sec:authorize="isAuthenticated()">
+                    <form method="POST" class="navbar-form navbar-center"
+                          action="@{'/products/' + ${product.id} + '/reviews' }"
+                          th:action="@{'/products/' + ${product.id} + '/reviews' }" th:object="${review}">
+                        <div class="form-group">
+                            <input type="text" th:field="*{text}" class="form-control" placeholder="Write your review"/>
+
+                        </div>
+
+                        <input th:field="*{productId}" type="hidden" value="${product.id}"/>
+                        <input type="submit" class="btn btn-default" value="Submit"/>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:insert="content/footer.html"></div>
+
+
+</html>

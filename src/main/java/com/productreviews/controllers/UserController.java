@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import static com.productreviews.controllers.ControllerConstants.LOGIN_PAGE;
-import static com.productreviews.controllers.ControllerConstants.REDIRECT;
+import static com.productreviews.controllers.ControllerConstants.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,8 +18,8 @@ public class UserController {
     private final UserService userService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getAuthPage(Model model) {
-        return ControllerConstants.LOGIN_PAGE;
+    public String redirectToHomePage() {
+        return REDIRECT + HOME_URL;
     }
 
 
