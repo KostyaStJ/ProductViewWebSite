@@ -17,8 +17,8 @@
 
                     <div class="col-xs-12 col-md-8">
                         <h1>Product</h1>
-                        <p class="lead" th:text=${product.name}></p>
-                        <p th:text=${product.description}></p>
+                        <p class="lead" th:text="${product.name}"></p>
+                        <p th:text="${product.description}"></p>
                     </div>
 
                 </div>
@@ -26,7 +26,13 @@
                 <p class="lead"> Reviews </p>
                 <ul class="list-group">
                     <th:block th:each="review : ${product.reviews}">
-                        <li class="list-group-item" th:text=${review.text}></li>
+                        <li class="list-group-item" th:text="${review.text}"></li>
+                        <form method="POST" action="#"
+                              th:action="@{'/products/' + ${product.id} + '/reviews/'  + ${review.reviewId} + '/delete'}"
+                              th:method="POST"
+                              sec:authorize="hasAuthority('ADMIN')">
+                            <input name="submit" type="submit" value="Delete" class="btn btn-primary"/>
+                        </form>
                     </th:block>
                 </ul>
 

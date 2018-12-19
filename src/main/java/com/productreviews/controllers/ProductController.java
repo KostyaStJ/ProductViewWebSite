@@ -2,7 +2,6 @@ package com.productreviews.controllers;
 
 import com.productreviews.data.ProductData;
 import com.productreviews.data.ReviewData;
-import com.productreviews.repository.CategoryRepository;
 import com.productreviews.services.ProductService;
 import com.productreviews.services.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import static com.productreviews.controllers.ControllerConstants.HOME_URL;
-import static com.productreviews.controllers.ControllerConstants.REDIRECT;
+import static com.productreviews.controllers.ControllerConstants.*;
 
 
 @Controller
@@ -21,7 +19,7 @@ public class ProductController
 {
 	private final ProductService productService;
 	private final ReviewService reviewService;
-	private final CategoryRepository categoryRepository;
+
 
 
 	@GetMapping(value = "/{productId}")
@@ -55,10 +53,17 @@ public class ProductController
 		return ControllerConstants.PRODUCT_PAGE;
 	}
 
-	@RequestMapping(value = "/{productId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{productId}/reviews/{reviewId}/delete")
+    public String deleteReview(@PathVariable Integer productId, @PathVariable Integer reviewId) {
+        reviewService.deleteReview(productId, reviewId);
+        return REDIRECT + PRODUCT_URL + "{productId}";
+    }
+
+    @RequestMapping(value = "/{productId}/delete", method = RequestMethod.POST)
 	public String deleteProduct(@PathVariable Integer productId) {
+        Integer categoryId = productService.getById(productId).getCategory().getId();
 		productService.deleteProduct(productId);
-		return REDIRECT + HOME_URL;
+        return REDIRECT + CATEGORY_URL + categoryId;
 	}
 
 }

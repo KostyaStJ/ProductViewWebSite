@@ -1,7 +1,9 @@
 package com.productreviews.services;
 
+import com.productreviews.converters.UserConverter;
+import com.productreviews.data.UserData;
+import com.productreviews.entities.Role;
 import com.productreviews.entities.User;
-import com.productreviews.entities.UserRoles;
 import com.productreviews.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,21 +17,28 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserConverter userConverter;
 
-    public void addUser(User user) {
+    public void addUser(UserData userData) {
+        User user = new User();
 
-        Set<UserRoles> userRoles = new HashSet<>();
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(Role.USER);
+        userData.setRoles(userRoles);
 
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        User userEntity = new User(user.getEmail(), user.getName(), user.getLastName(), encodedPassword, userRoles);
-        userRepository.save(userEntity);
+        String encodedPassword = passwordEncoder.encode(userData.getPassword());
+        userConverter.dataToModel(userData, user);
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
     }
 
-    public User getUserById(String email) {
+    public UserData getUserById(String email) {
         Optional<User> userOptional = userRepository.findById(email);
         if (userOptional.isPresent()) {
             User requiredUser = userOptional.get();
-            return requiredUser;
+            UserData userData = new UserData();
+            userConverter.modelToData(userData, requiredUser);
+            return userData;
         } else {
             return null;
         }

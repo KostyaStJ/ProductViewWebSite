@@ -4,15 +4,34 @@
 >
 
 <div th:insert="content/header.html"></div>
+<div class="col-md-4" th:insert="admin/admin.html"></div>
 
 <div class="container">
     <div class="starter-template">
-        <div class="nav navbar-form">
-            <div class="list-group">
-                <th:block th:each="user : ${users}">
-                    <li class="list-group-item list-group-item-info" th:text="${user.email}"></li>
-                </th:block>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Users</div>
+                <table class="table">
+                    <tr>
+                        <th>User name</th>
+                        <th>User lastname</th>
+                        <th>User email</th>
+                        <th>User role</th>
+                        <th>Action</th>
+                    </tr>
+                    <th:block th:each="user : ${users}">
+                        <tr>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.roles}"></td>
+                            <td>delete</td>
+                        </tr>
+                    </th:block>
+                </table>
             </div>
+        </div>
+    </div>
         </div>
     </div>
 </div>

@@ -25,25 +25,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/static/**").permitAll()
-                .antMatchers("/css/**", "/js/**", "/fonts/**", "/logo.png").permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/registration", "/home")
+                .antMatchers("/", "/registration")
                 .permitAll()
                 .antMatchers("/admin").hasAuthority("ADMIN")
-
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .usernameParameter("email").passwordParameter("password")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/home", true)
+                .defaultSuccessUrl("/", true)
                 .failureUrl("/registration")
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/home");
+                .logoutSuccessUrl("/");
 
 
     }

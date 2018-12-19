@@ -20,8 +20,8 @@ public class User {
     private String lastName;
     private String password;
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_email"), inverseJoinColumns = @JoinColumn
-            (name = "id"))
-    private Set<UserRoles> roles;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 }

@@ -3,27 +3,42 @@
 >
 
 <div th:insert="content/header.html"></div>
+<div class="col-md-4" th:insert="admin/admin.html"></div>
 
 <div class="container">
     <div class="starter-template">
-        <div class="nav navbar-form">
+        <div class="col-md-4">
+
             <div class="list-group">
                 <th:block th:each="category : ${categories}">
-                    <a th:href="@{'/categories/' + ${category.id}}" class="list-group-item list-group-item-info"
-                       th:text="${category.name}">
+
+                    <a th:href="@{'/admin/category/' + ${category.id} + '/edit'}"
+                       class="list-group-item list-group-item-info" th:text="${category.name}">
                     </a>
                 </th:block>
             </div>
-            <form method="POST" action="/admin/addcategory" th:action="@{'/admin/addcategory'}" th:object="${category}">
-                <input type="text" th:field="*{name}" class="form-control" placeholder="Category name"/>
-                <input type="text" th:field="*{description}" class="form-control" placeholder="Category desc"/>
-                <input th:field="*{id}" type="hidden" value="${category.id}"/>
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        <input type="submit" value="Submit" class="btn btn-primary"/>
+            <details>
+                <summary>Add category</summary>
+                <form method="POST" action="/admin/category/add" th:action="@{'/admin/category/add'}"
+                      th:object="${category}">
+                    <div class="form-group">
+                        <label for="name">Category name</label>
+                        <input type="text" th:field="*{name}" class="form-control" placeholder="Category name"
+                               id="name"/>
                     </div>
+                    <div class="form-group">
+                        <label for="desc">Category description</label>
+                        <input type="text" th:field="*{description}" class="form-control" placeholder="Category desc"
+                               id="desc"/>
+                    </div>
+                    <input th:field="*{id}" type="hidden" value="${category.id}"/>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                        <input type="submit" value="Submit" class="btn btn-primary"/>
+                        </div>
                 </div>
             </form>
+            </details>
         </div>
     </div>
 </div>

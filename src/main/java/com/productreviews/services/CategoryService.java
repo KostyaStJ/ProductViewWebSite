@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,16 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryConverter categoryConverter;
 
+    public CategoryData getById(Integer id) {
+        CategoryData categoryData = new CategoryData();
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isPresent()) {
+            categoryConverter.modelToData(categoryOptional.get(), categoryData);
+            return categoryData;
+        } else {
+            return null;
+        }
+    }
 
     public void addCategory(CategoryData categoryData) {
         Category categoryEntity = new Category();
@@ -40,5 +51,14 @@ public class CategoryService {
 
         return categoriesData;
     }
+
+    public void editCategory(Integer categoryId, CategoryData categoryData) {
+        Category category = categoryRepository.findById(categoryId).get();
+        category.setName(categoryData.getName());
+        category.setDescription(categoryData.getDescription());
+        categoryRepository.save(category);
+    }
+
+
 
 }

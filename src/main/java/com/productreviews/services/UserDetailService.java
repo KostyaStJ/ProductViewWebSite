@@ -1,7 +1,7 @@
 package com.productreviews.services;
 
+import com.productreviews.entities.Role;
 import com.productreviews.entities.User;
-import com.productreviews.entities.UserRoles;
 import com.productreviews.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,8 +29,8 @@ public class UserDetailService implements UserDetailsService {
         User user = userOptional.get();
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (UserRoles userRoles : user.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(userRoles.getName()));
+        for (Role role : user.getRoles()) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.name()));
 
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);

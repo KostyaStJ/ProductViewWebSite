@@ -21,7 +21,7 @@ public class Product
 	@Column(name = "product_id")
 	private Integer id;
 
-	@ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
 	private Category category;
 
 	private String name;

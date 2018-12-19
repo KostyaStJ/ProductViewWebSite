@@ -7,6 +7,8 @@ import com.productreviews.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +41,19 @@ public class ProductService {
 
     public void deleteProduct(Integer id) {
         productRepository.deleteById(id);
+    }
+
+    public List<ProductData> getProducts() {
+        Iterable<Product> productIterable = productRepository.findAll();
+
+        List<ProductData> productsData = new ArrayList<>();
+        for (Product product : productIterable) {
+            ProductData productData = new ProductData();
+            productConverter.modelToData(productData, product);
+            productsData.add(productData);
+        }
+
+        return productsData;
     }
 
 }

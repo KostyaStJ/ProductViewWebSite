@@ -13,12 +13,15 @@
                     <div class="thumbnail">
                         <a th:href="@{'/products/' + ${product.id}}"><img src="holder.js/242x200"></a>
                         <div class="caption">
-                            <h3 th:text=${product.name}></h3>
-                            <p th:text=${product.description}></p>
-                            <form method="POST" action="#" th:action="@{'/products/' + ${product.id}}" th:method="POST"
+                            <h3 th:text="${product.name}"></h3>
+                            <p th:text="${product.description}"></p>
+
+                            <form method="POST" action="#" th:action="@{'/products/' + ${product.id} + '/delete'}"
+                                  th:method="POST"
                                   sec:authorize="hasAuthority('ADMIN')">
                                 <input name="submit" type="submit" value="Delete" class="btn btn-primary"/>
                             </form>
+
                         </div>
                     </div>
                 </div>

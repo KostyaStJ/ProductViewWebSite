@@ -11,4 +11,5 @@ public class ProductreviewsApplication
 	{
 		SpringApplication.run(ProductreviewsApplication.class, args);
 	}
+
 }

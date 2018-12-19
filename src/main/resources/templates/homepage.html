@@ -14,7 +14,9 @@
                         <a th:href="@{'/categories/' + ${category.id}}"><img src="holder.js/242x200"></a>
                         <div class="caption">
                             <h3 th:text="${category.name}"></h3>
-                            <form method="POST" action="#" th:action="@{'/home/' + ${category.id}}" th:method="POST"
+                            <h5 th:text="${category.description}"></h5>
+                            <form method="POST" action="#" th:action="@{'/categories/' + ${category.id} + '/delete'}"
+                                  th:method="POST"
                                   sec:authorize="hasAuthority('ADMIN')">
                                 <input name="submit" type="submit" value="Delete" class="btn btn-primary"/>
                             </form>

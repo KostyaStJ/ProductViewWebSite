@@ -11,13 +11,16 @@ public class ControllerConstants
     public static final String LOGIN_PAGE = "login";
     public static final String REGISTER_PAGE = "registration";
 
-    public static final String ADMIN_PAGE = "admin";
-    public static final String ADMIN_ADDCATEGORY_PAGE = "addCategory";
-    public static final String ADMIN_ALLCATEGORIES_PAGE = "allcategories";
-    public static final String ADMIN_ALLUSERS_PAGE = "allusers";
-    public static final String ADMIN_ADDPRODUCT_PAGE = "addproduct";
 
-    public static final String HOME_URL = "/home";
-    public static final String ADMIN_URL = "/admin";
+    public static final String ADMIN_ALLCATEGORIES_PAGE = "admin/allcategories";
+    public static final String ADMIN_ALLUSERS_PAGE = "admin/allusers";
+    public static final String ADMIN_ADDPRODUCT_PAGE = "admin/addproduct";
+    public static final String ADMIN_EDIT_CATEGORY_PAGE = "admin/editcategory";
+
+    public static final String HOME_URL = "/";
+    public static final String ADMIN_CATEGORY_URL = "/admin/category";
+    public static final String ADMIN_PRODUCT_URL = "/admin/product";
+    public static final String PRODUCT_URL = "/products/";
+    public static final String CATEGORY_URL = "/categories/";
 
 }

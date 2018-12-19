@@ -4,10 +4,9 @@
 
 <div th:insert="content/header.html"></div>
 <div class="container">
-
     <div class="starter-template">
         <div>
-            <form method="POST" action="/registration" th:action="@{/registration}" th:object="${user}">
+            <form method="POST" action="/registration" th:action="@{/registration}" th:object="${userData}">
                 <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-5">
