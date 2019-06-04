@@ -7,10 +7,12 @@ import com.productreviews.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static com.productreviews.controllers.ControllerConstants.*;
@@ -42,7 +44,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String userRegistration(@ModelAttribute("userData") UserData userData, Model model) {
+    public String userRegistration(@Valid @ModelAttribute("userData") UserData userData, Model model, BindingResult bindingResult) {
+
+        System.out.println("START");
+        if (bindingResult.hasErrors()){
+            System.out.println("HERE");
+            model.addAttribute(userData);
+            return REGISTER_PAGE;
+        }
+        System.out.println("OUT IF");
+
         userService.addUser(userData);
         return REDIRECT + LOGIN_PAGE;
     }

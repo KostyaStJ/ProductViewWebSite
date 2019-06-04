@@ -17,14 +17,15 @@
                     </a>
                 </th:block>
             </div>
-            <details>
-                <summary>Add category</summary>
+
+                <h4>Add category</h4>
                 <form method="POST" action="/admin/category/add" th:action="@{'/admin/category/add'}"
                       th:object="${category}">
                     <div class="form-group">
                         <label for="name">Category name</label>
-                        <input type="text" th:field="*{name}" class="form-control" placeholder="Category name"
-                               id="name"/>
+                        <input type="text" th:field="*{name}" class="form-control" placeholder="Category name" id="name"/>
+                        <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+
                     </div>
                     <div class="form-group">
                         <label for="desc">Category description</label>
@@ -38,7 +39,7 @@
                         </div>
                 </div>
             </form>
-            </details>
+
         </div>
     </div>
 </div>

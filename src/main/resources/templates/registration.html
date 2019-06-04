@@ -28,8 +28,8 @@
                     <label for="email" class="col-sm-2 col-form-label">E-mail</label>
                     <div class="col-sm-5">
 
-                        <input type="text" th:field="*{email}" class="form-control" placeholder="User email"
-                               id="email"/>
+                        <input type="text" th:field="*{email}" class="form-control" placeholder="User email" id="email"/>
+                        <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
 
                     </div>
                 </div>
