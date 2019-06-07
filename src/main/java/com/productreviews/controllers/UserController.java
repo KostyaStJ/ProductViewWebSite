@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -38,23 +39,25 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String getRegistrationPage(Model model) {
-        UserData userData = new UserData();
-        model.addAttribute("userData", userData);
+        model.addAttribute("userData", new UserData());
         return ControllerConstants.REGISTER_PAGE;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String userRegistration(@Valid @ModelAttribute("userData") UserData userData, Model model, BindingResult bindingResult) {
+    public String userRegistration(@ModelAttribute("userData") @Valid UserData userData, BindingResult bindingResult,
+                                   Model model, RedirectAttributes redirectAttributes) {
 
-        System.out.println("START");
+       userService.checkPasswordValidityForEditedUser(userData.getPassword(), bindingResult);
+
         if (bindingResult.hasErrors()){
-            System.out.println("HERE");
             model.addAttribute(userData);
             return REGISTER_PAGE;
         }
-        System.out.println("OUT IF");
 
         userService.addUser(userData);
+
+        redirectAttributes.addFlashAttribute("message", "You successfully created new account");
+
         return REDIRECT + LOGIN_PAGE;
     }
 

@@ -6,14 +6,17 @@ import com.productreviews.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static com.productreviews.controllers.ControllerConstants.*;
-import static com.productreviews.controllers.ControllerConstants.ADMIN_CATEGORY_URL;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,4 +47,47 @@ public class AdminUserController {
         userService.addUser(userData);
         return REDIRECT + ADMIN_CATEGORY_URL;
     }
+
+    @RequestMapping(value = "/{userId}/edit", method = RequestMethod.GET)
+    public String getEditUserPage(@PathVariable("userId") Integer userId, Model model){
+        UserData userData = userService.getUserById(userId);
+        UserData temporaryUserData = new UserData();
+
+        temporaryUserData.setEmail(userData.getEmail());
+        temporaryUserData.setName(userData.getName());
+
+        model.addAttribute("user", userData);
+        model.addAttribute("userNew", temporaryUserData);
+
+
+        return ADMIN_EDIT_USER_PAGE;
+    }
+
+    @RequestMapping(value = "/{userId}/edit", method = RequestMethod.POST)
+    public String editUser(@PathVariable("userId") Integer userId, @Valid @ModelAttribute("userNew") UserData userNew,
+                           BindingResult bindingResult, @ModelAttribute("user") UserData user, Model model,
+                           RedirectAttributes redirectAttributes){
+
+        if (userNew.getPassword()!=null && !userNew.getPassword().isEmpty()) {
+            userService.checkPasswordValidityForEditedUser(userNew.getPassword(), bindingResult);
+        }
+
+
+        if (bindingResult.hasErrors()){
+
+            UserData userData = userService.getUserById(userId);
+            model.addAttribute("user", userData);
+            model.addAttribute("userNew", userNew);
+
+            return ADMIN_EDIT_USER_PAGE;
+        }
+
+        userService.editUser(userId, userNew);
+
+        redirectAttributes.addFlashAttribute("message", "User edited successfully");
+
+        return REDIRECT + ADMIN_USER_URL;
+
+    }
+
 }

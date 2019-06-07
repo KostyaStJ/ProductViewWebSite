@@ -56,4 +56,19 @@ public class ProductService {
         return productsData;
     }
 
+    public void editProduct(Integer productId, ProductData productData){
+        Product product = productRepository.findById(productId).get();
+        product.setName(productData.getName());
+
+        if (!productData.getDescription().equals("")){
+            product.setDescription(productData.getDescription());
+        }
+
+        if (productData.getPrice()!=null){
+            product.setPrice(productData.getPrice());
+        }
+
+        productRepository.save(product);
+    }
+
 }

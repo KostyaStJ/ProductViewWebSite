@@ -15,6 +15,7 @@ public class UserConverter {
     }
 
     public void modelToData(UserData userData, User user) {
+        userData.setId(user.getId());
         userData.setName(user.getName());
         userData.setLastName(user.getLastName());
         userData.setEmail(user.getEmail());

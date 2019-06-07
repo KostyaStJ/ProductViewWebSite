@@ -8,10 +8,18 @@
 <div class="container">
     <div class="starter-template">
         <div class="col-md-4">
+            <div th:if="${message!= null}">
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h5 th:text="${message}"></h5>
+                </div>
+            </div>
+
             <div class="list-group">
                 <th:block th:each="product : ${products}">
 
-                    <a class="list-group-item list-group-item-info" th:text="${product.name}">
+                    <a th:href="@{'/admin/product/' + ${product.id} + '/edit'}"
+                       class="list-group-item list-group-item-info" th:text="${product.name}">
                     </a>
                 </th:block>
             </div>

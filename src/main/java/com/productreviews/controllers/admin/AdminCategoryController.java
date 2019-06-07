@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -21,7 +22,7 @@ import static com.productreviews.controllers.ControllerConstants.*;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/admin/category")
-public class AdminCategoryController implements WebMvcConfigurer {
+public class AdminCategoryController {
 
     private final CategoryService categoryService;
 
@@ -34,13 +35,17 @@ public class AdminCategoryController implements WebMvcConfigurer {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addCategory( @Valid @ModelAttribute("category") CategoryData categoryData, BindingResult bindingResult, Model model) {
+    public String addCategory( @Valid @ModelAttribute("category") CategoryData categoryData, BindingResult bindingResult,
+                               Model model, RedirectAttributes redirectAttributes) {
 
         if(bindingResult.hasErrors()){
             return "admin/allcategories";
         }
 
         categoryService.addCategory(categoryData);
+
+        redirectAttributes.addFlashAttribute("message", "Category created successfully");
+
         return REDIRECT + ADMIN_CATEGORY_URL;
     }
 
@@ -54,7 +59,7 @@ public class AdminCategoryController implements WebMvcConfigurer {
 
     @RequestMapping(value = "/{categoryId}/edit", method = RequestMethod.POST)
     public String editCategory(@PathVariable Integer categoryId, @Valid @ModelAttribute("categoryDataNew")
-            CategoryData categoryNew, BindingResult bindingResult, Model model) {
+            CategoryData categoryNew, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 
         if(bindingResult.hasErrors()){
             model.addAttribute(categoryNew);
@@ -62,6 +67,9 @@ public class AdminCategoryController implements WebMvcConfigurer {
         }
 
         categoryService.editCategory(categoryId, categoryNew);
+
+        redirectAttributes.addFlashAttribute("message", "Category edited successfully");
+
         return REDIRECT + ADMIN_CATEGORY_URL;
     }
 
